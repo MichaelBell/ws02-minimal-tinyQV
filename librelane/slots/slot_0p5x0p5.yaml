@@ -13,20 +13,18 @@ PAD_EAST: []
 PAD_NORTH: []
 
 PAD_WEST: [
-    clk_pad,
-    rst_n_pad,
+    "bidir\\[12\\].pad",
+    "bidir\\[11\\].pad",
+    "bidir\\[10\\].pad",
+    "bidir\\[9\\].pad",
+    "bidir\\[8\\].pad",
+    "bidir\\[7\\].pad",
 
-    "vss_pads\\[0\\].pad",
-    "vdd_pads\\[0\\].pad",
+    rst_n_pad,
+    clk_pad,
 
     "dvss_pads\\[0\\].pad",
     "dvdd_pads\\[0\\].pad",
-
-    "analog\\[1\\].pad",
-    "analog\\[0\\].pad",
-
-    "inputs\\[1\\].pad",
-    "inputs\\[0\\].pad",
 
     "bidir\\[6\\].pad",
     "bidir\\[5\\].pad",
