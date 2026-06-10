@@ -95,11 +95,64 @@ MACROS:
         - pdk_dir::libs.ref/gf180mcu_ocd_ip_sram/lib/gf180mcu_ocd_ip_sram__sram512x8m8wm1__ss_125C_3v00.lib
     instances:
       # Make sure to specify the SRAMs in pdn_cfg.tcl
-      i_chip_core.tt.i_tinyqv.cpu.i_scratch.i_sram:
-        location: [450, 1760]
+      i_chip_core.tt.i_tinyqv.cpu.i_scratch.i_sram1:
+        location: [448, 2115]
         orientation: N
+
+  gf180mcu_ocd_ip_sram__sram1024x8m8wm1:
+    gds:
+      - pdk_dir::libs.ref/gf180mcu_ocd_ip_sram/gds/gf180mcu_ocd_ip_sram__sram1024x8m8wm1.gds
+    lef:
+      - pdk_dir::libs.ref/gf180mcu_ocd_ip_sram/lef/gf180mcu_ocd_ip_sram__sram1024x8m8wm1.lef
+    vh:
+      - pdk_dir::libs.ref/gf180mcu_ocd_ip_sram/verilog/gf180mcu_ocd_ip_sram__sram1024x8m8wm1__blackbox_pp.v
+    lib:
+      "*_tt_025C_3v30":
+        - pdk_dir::libs.ref/gf180mcu_ocd_ip_sram/lib/gf180mcu_ocd_ip_sram__sram1024x8m8wm1__tt_025C_3v30.lib
+      "*_ff_n40C_3v60":
+        - pdk_dir::libs.ref/gf180mcu_ocd_ip_sram/lib/gf180mcu_ocd_ip_sram__sram1024x8m8wm1__ff_n40C_3v60.lib
+      "*_ss_125C_3v00":
+        - pdk_dir::libs.ref/gf180mcu_ocd_ip_sram/lib/gf180mcu_ocd_ip_sram__sram1024x8m8wm1__ss_125C_3v00.lib
+    instances:
+      # Make sure to specify the SRAMs in pdn_cfg.tcl
+      i_chip_core.tt.i_tinyqv.cpu.i_scratch.i_sram2:
+        location: [755, 1921]
+        orientation: N        
+      i_chip_core.tt.i_tinyqv.cpu.i_scratch.i_sram00:
+        location: [930, 92]
+        orientation: S        
+      i_chip_core.tt.i_tinyqv.cpu.i_scratch.i_sram01:
+        location: [1325, 92]
+        orientation: E        
+      i_chip_core.tt.i_tinyqv.cpu.i_scratch.i_sram02:
+        location: [1325, 402]
+        orientation: E        
+      i_chip_core.tt.i_tinyqv.cpu.i_scratch.i_sram03:
+        location: [1325, 712]
+        orientation: E        
+      i_chip_core.tt.i_tinyqv.cpu.i_scratch.i_sram04:
+        location: [1325, 1022]
+        orientation: E        
+      i_chip_core.tt.i_tinyqv.cpu.i_scratch.i_sram05:
+        location: [1325, 1332]
+        orientation: E        
+      i_chip_core.tt.i_tinyqv.cpu.i_scratch.i_sram06:
+        location: [1325, 1642]
+        orientation: E        
+      i_chip_core.tt.i_tinyqv.cpu.i_scratch.i_sram07:
+        location: [1325, 1952]
+        orientation: E        
 
 # This is an alternative method compared to
 # specifying the power connections in the RTL
 PDN_MACRO_CONNECTIONS:
-- "i_chip_core.tt.i_tinyqv.cpu.i_scratch.i_sram VDD VSS VDD VSS"
+- "i_chip_core.tt.i_tinyqv.cpu.i_scratch.i_sram1 VDD VSS VDD VSS"
+- "i_chip_core.tt.i_tinyqv.cpu.i_scratch.i_sram2 VDD VSS VDD VSS"
+- "i_chip_core.tt.i_tinyqv.cpu.i_scratch.i_sram00 VDD VSS VDD VSS"
+- "i_chip_core.tt.i_tinyqv.cpu.i_scratch.i_sram01 VDD VSS VDD VSS"
+- "i_chip_core.tt.i_tinyqv.cpu.i_scratch.i_sram02 VDD VSS VDD VSS"
+- "i_chip_core.tt.i_tinyqv.cpu.i_scratch.i_sram03 VDD VSS VDD VSS"
+- "i_chip_core.tt.i_tinyqv.cpu.i_scratch.i_sram04 VDD VSS VDD VSS"
+- "i_chip_core.tt.i_tinyqv.cpu.i_scratch.i_sram05 VDD VSS VDD VSS"
+- "i_chip_core.tt.i_tinyqv.cpu.i_scratch.i_sram06 VDD VSS VDD VSS"
+- "i_chip_core.tt.i_tinyqv.cpu.i_scratch.i_sram07 VDD VSS VDD VSS"
