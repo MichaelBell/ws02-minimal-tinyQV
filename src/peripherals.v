@@ -223,7 +223,7 @@ module tinyQV_peripherals #(
     );
 
     // Peripheral 3 is a full peripheral but with no interrupt
-    tqvp_full_empty_no_irq #(.NUM_GPIO(NUM_GPIO)) i_user_peri03(
+    tqvp_game_pmod #(.NUM_GPIO(NUM_GPIO)) i_user_peri03(
         .clk(clk),
         .rst_n(rst_n_rebuf),
 
@@ -243,7 +243,7 @@ module tinyQV_peripherals #(
     // --------------------------------------------------------------------- //
     // Full interface peripherals
 
-    tqvp_full_empty #(.NUM_GPIO(NUM_GPIO)) i_user_peri04(
+    tqvp_hx2003_pulse_transmitter #(.NUM_GPIO(NUM_GPIO)) i_user_peri04(
         .clk(clk),
         .rst_n(rst_n_rebuf),
 
@@ -281,7 +281,7 @@ module tinyQV_peripherals #(
         .user_interrupt(user_interrupts[5])
     );
 
-    tqvp_full_empty #(.NUM_GPIO(NUM_GPIO)) i_user_peri06 (
+    tqvp_CORDIC #(.NUM_GPIO(NUM_GPIO)) i_user_peri06 (
         .clk(clk),
         .rst_n(rst_n_rebuf),
 
@@ -367,7 +367,7 @@ module tinyQV_peripherals #(
         .data_out(data_from_simple_peri[2])
     );
 
-    tqvp_byte_empty #(.NUM_GPIO(NUM_GPIO)) i_simple_peri19(
+    tqvp_rejunity_ay8913 #(.NUM_GPIO(NUM_GPIO)) i_simple_peri19(
         .clk(clk),
         .rst_n(rst_n_rebuf),
 
