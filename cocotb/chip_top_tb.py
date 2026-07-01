@@ -470,7 +470,7 @@ async def test_start(dut):
 
     logger.info("Done!")
 
-#@cocotb.test()
+@cocotb.test()
 async def test_uart(dut):
     """Run a simple UART test"""
 
@@ -558,7 +558,7 @@ async def test_uart(dut):
 
     logger.info("Done!")
 
-#@cocotb.test()
+@cocotb.test()
 async def test_scratch_memory(dut):
     # Create a logger for this testbench
     logger = logging.getLogger("my_testbench")
