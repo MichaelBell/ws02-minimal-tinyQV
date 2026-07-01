@@ -50,14 +50,12 @@ set_input_delay -min 0 -clock $clocks $clk_core_inout_ports
 set_input_delay -max $input_delay_value -clock $clocks $clk_core_inout_ports
 set_output_delay $output_delay_value -clock $clocks $clk_core_inout_ports
 
-# Input-only pads
-set clk_core_input_ports [get_ports { 
-    rst_n_PAD
-    input_PAD[*]
-}] 
+# Output delays on QSPI to improve coherence
+set_output_delay -max [expr $::env(CLOCK_PERIOD) * 0.65] -clock $clocks {bidir_PAD[0] bidir_PAD[1] bidir_PAD[2] bidir_PAD[4] bidir_PAD[5] bidir_PAD[6]}
+set_output_delay -min 2 -clock $clocks {bidir_PAD[0] bidir_PAD[1] bidir_PAD[2] bidir_PAD[4] bidir_PAD[5] bidir_PAD[6]}
 
-set_input_delay -min 0 -clock $clocks $clk_core_input_ports
-set_input_delay -max $input_delay_value -clock $clocks $clk_core_input_ports
+# Reset
+set_input_delay 2 -clock $clocks {rst_n_PAD}
 
 # Output load
 set cap_load [expr $::env(OUTPUT_CAP_LOAD) / 1000.0]
@@ -80,3 +78,5 @@ if { [info exists ::env(OPENLANE_SDC_IDEAL_CLOCKS)] && $::env(OPENLANE_SDC_IDEAL
     set_propagated_clock [all_clocks]
 }
 
+# Ignore switch of setup/ctrl mux on QSPI output paths
+set_false_path -from *.tt.rst_reg_n_gf180mcu_as_sc_mcu7t3v3__dfxtn_2_Q -to $clk_core_inout_ports
