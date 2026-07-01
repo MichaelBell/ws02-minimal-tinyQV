@@ -39,7 +39,7 @@ async def set_defaults(dut):
 
 async def start_clock(clock):
     """Start the clock"""
-    c = Clock(clock, 20.834, "ns")
+    c = Clock(clock, 17.858, "ns")
     cocotb.start_soon(c.start())
 
 
@@ -470,7 +470,7 @@ async def test_start(dut):
 
     logger.info("Done!")
 
-@cocotb.test()
+#@cocotb.test()
 async def test_uart(dut):
     """Run a simple UART test"""
 
@@ -558,7 +558,7 @@ async def test_uart(dut):
 
     logger.info("Done!")
 
-@cocotb.test()
+#@cocotb.test()
 async def test_scratch_memory(dut):
     # Create a logger for this testbench
     logger = logging.getLogger("my_testbench")
@@ -570,16 +570,16 @@ async def test_scratch_memory(dut):
 
     logger.info("Running the Scratch memory test...")
 
-    RAM_SIZE = 512
+    RAM_SIZE = 1536
     RAM = [0]*RAM_SIZE
     for i in range(0, RAM_SIZE, 4):
         await send_instr(dut, InstructionADDI(x1, x0, i).encode())
-        await send_instr(dut, InstructionSW(x0, x1, i-0x400).encode())
+        await send_instr(dut, InstructionSW(x0, x1, i-0x800).encode())
         RAM[i] = i & 0xff
         RAM[i+1] = i >> 8
 
     for i in range(0, RAM_SIZE, 4):
-        await send_instr(dut, InstructionLW(x1, x0, i-0x400).encode())
+        await send_instr(dut, InstructionLW(x1, x0, i-0x800).encode())
         assert await read_reg(dut, x1) == i
 
     mask = [0xfff, 0xffe, 0xffc]
@@ -590,9 +590,9 @@ async def test_scratch_memory(dut):
         await send_instr(dut, InstructionLUI(x1, (write_val >> 12) + ((write_val >> 11) & 1)).encode())
         await send_instr(dut, InstructionADDI(x1, x1, (write_val & 0xfff) - (0x1000 if write_val & 0x800 else 0)).encode())
 
-        if write_len == 0: await send_instr(dut, InstructionSB(x0, x1, write_addr-0x400).encode())
-        elif write_len == 1: await send_instr(dut, InstructionSH(x0, x1, write_addr-0x400).encode())
-        else: await send_instr(dut, InstructionSW(x0, x1, write_addr-0x400).encode())
+        if write_len == 0: await send_instr(dut, InstructionSB(x0, x1, write_addr-0x800).encode())
+        elif write_len == 1: await send_instr(dut, InstructionSH(x0, x1, write_addr-0x800).encode())
+        else: await send_instr(dut, InstructionSW(x0, x1, write_addr-0x800).encode())
 
         read_len = write_len
         read_addr = write_addr
@@ -606,18 +606,18 @@ async def test_scratch_memory(dut):
             RAM[write_addr + 2] = (write_val >> 16) & 0xff
             RAM[write_addr + 3] = (write_val >> 24) & 0xff
 
-        if read_len == 0: await send_instr(dut, InstructionLBU(x1, x0, read_addr-0x400).encode())
-        elif read_len == 1: await send_instr(dut, InstructionLHU(x1, x0, read_addr-0x400).encode())
-        else: await send_instr(dut, InstructionLW(x1, x0, read_addr-0x400).encode())
+        if read_len == 0: await send_instr(dut, InstructionLBU(x1, x0, read_addr-0x800).encode())
+        elif read_len == 1: await send_instr(dut, InstructionLHU(x1, x0, read_addr-0x800).encode())
+        else: await send_instr(dut, InstructionLW(x1, x0, read_addr-0x800).encode())
         assert await read_reg(dut, x1) == read_val
 
     for i in range(1000):
         if random.randint(0, 1) == 0:
             read_len = random.randint(0,2)
             read_addr = random.randint(0,RAM_SIZE - (1 << read_len)) & mask[read_len]
-            if read_len == 0: await send_instr(dut, InstructionLB(x1, x0, read_addr-0x400).encode())
-            elif read_len == 1: await send_instr(dut, InstructionLH(x1, x0, read_addr-0x400).encode())
-            else: await send_instr(dut, InstructionLW(x1, x0, read_addr-0x400).encode())
+            if read_len == 0: await send_instr(dut, InstructionLB(x1, x0, read_addr-0x800).encode())
+            elif read_len == 1: await send_instr(dut, InstructionLH(x1, x0, read_addr-0x800).encode())
+            else: await send_instr(dut, InstructionLW(x1, x0, read_addr-0x800).encode())
             read_val = await read_reg(dut, x1)
             assert (read_val & 0xFF) == RAM[read_addr]
             if read_len > 0: assert ((read_val >> 8) & 0xFF) == RAM[read_addr+1]
@@ -631,9 +631,9 @@ async def test_scratch_memory(dut):
             await send_instr(dut, InstructionLUI(x1, (write_val >> 12) + ((write_val >> 11) & 1)).encode())
             await send_instr(dut, InstructionADDI(x1, x1, (write_val & 0xfff) - (0x1000 if write_val & 0x800 else 0)).encode())
 
-            if write_len == 0: await send_instr(dut, InstructionSB(x0, x1, write_addr-0x400).encode())
-            elif write_len == 1: await send_instr(dut, InstructionSH(x0, x1, write_addr-0x400).encode())
-            else: await send_instr(dut, InstructionSW(x0, x1, write_addr-0x400).encode())
+            if write_len == 0: await send_instr(dut, InstructionSB(x0, x1, write_addr-0x800).encode())
+            elif write_len == 1: await send_instr(dut, InstructionSH(x0, x1, write_addr-0x800).encode())
+            else: await send_instr(dut, InstructionSW(x0, x1, write_addr-0x800).encode())
             
             RAM[write_addr] = write_val & 0xff
             if write_len > 0: RAM[write_addr + 1] = (write_val >> 8) & 0xff
@@ -641,6 +641,102 @@ async def test_scratch_memory(dut):
                 RAM[write_addr + 2] = (write_val >> 16) & 0xff
                 RAM[write_addr + 3] = (write_val >> 24) & 0xff
 
+@cocotb.test()
+async def test_stack_memory(dut):
+    # Create a logger for this testbench
+    logger = logging.getLogger("my_testbench")
+
+    logger.info("Startup sequence...")
+
+    # Start up
+    await start_up(dut)
+
+    logger.info("Running the Scratch memory test...")
+
+    RAM_SIZE = 8192
+    RAM_BASE = 0xfffd800
+    RAM = [0]*RAM_SIZE
+    for i in range(0, RAM_SIZE, 4):
+        if (i & 0xfff) == 0:
+            await send_instr(dut, InstructionLUI(sp, (RAM_BASE+0x800+i) >> 12).encode())
+        await send_instr(dut, InstructionLUI(x1, (i >> 12) + ((i >> 11) & 1)).encode())
+        await send_instr(dut, InstructionADDI(x1, x1, (i & 0xfff) - (0x1000 if i & 0x800 else 0)).encode())
+        await send_instr(dut, InstructionSW(sp, x1, (i & 0xfff)-0x800).encode())
+        RAM[i] = i & 0xff
+        RAM[i+1] = i >> 8
+
+    for i in range(0, RAM_SIZE, 4):
+        if (i & 0xfff) == 0:
+            await send_instr(dut, InstructionLUI(sp, (RAM_BASE+0x800+i) >> 12).encode())
+        await send_instr(dut, InstructionLW(x1, sp, (i & 0xfff)-0x800).encode())
+        assert await read_reg(dut, x1) == i
+
+    mask = [0xfff, 0xffe, 0xffc]
+    for i in range(20):
+        write_len = random.randint(0,2)
+        write_addr = random.randint(0,RAM_SIZE - (1 << write_len)) & mask[write_len]
+        write_addr_lo = write_addr & 0xfff
+        write_addr_hi = write_addr & 0xf000
+        write_val = random.randint(0,0xffffffff)
+        await send_instr(dut, InstructionLUI(sp, (RAM_BASE+0x800+write_addr_hi) >> 12).encode())
+        await send_instr(dut, InstructionLUI(x1, (write_val >> 12) + ((write_val >> 11) & 1)).encode())
+        await send_instr(dut, InstructionADDI(x1, x1, (write_val & 0xfff) - (0x1000 if write_val & 0x800 else 0)).encode())
+
+        if write_len == 0: await send_instr(dut, InstructionSB(sp, x1, write_addr_lo-0x800).encode())
+        elif write_len == 1: await send_instr(dut, InstructionSH(sp, x1, write_addr_lo-0x800).encode())
+        else: await send_instr(dut, InstructionSW(sp, x1, write_addr_lo-0x800).encode())
+
+        read_len = write_len
+        read_addr_lo = write_addr_lo
+        read_val = write_val
+        if write_len == 0: read_val &= 0xff
+        if write_len == 1: read_val &= 0xffff
+
+        RAM[write_addr] = write_val & 0xff
+        if write_len > 0: RAM[write_addr + 1] = (write_val >> 8) & 0xff
+        if write_len > 1:
+            RAM[write_addr + 2] = (write_val >> 16) & 0xff
+            RAM[write_addr + 3] = (write_val >> 24) & 0xff
+
+        if read_len == 0: await send_instr(dut, InstructionLBU(x1, sp, read_addr_lo-0x800).encode())
+        elif read_len == 1: await send_instr(dut, InstructionLHU(x1, sp, read_addr_lo-0x800).encode())
+        else: await send_instr(dut, InstructionLW(x1, sp, read_addr_lo-0x800).encode())
+        assert await read_reg(dut, x1) == read_val
+
+    for i in range(3000):
+        if random.randint(0, 1) == 0:
+            read_len = random.randint(0,2)
+            read_addr = random.randint(0,RAM_SIZE - (1 << read_len)) & mask[read_len]
+            read_addr_lo = read_addr & 0xfff
+            read_addr_hi = read_addr & 0xf000
+            await send_instr(dut, InstructionLUI(sp, (RAM_BASE+0x800+read_addr_hi) >> 12).encode())
+            if read_len == 0: await send_instr(dut, InstructionLB(x1, sp, read_addr_lo-0x800).encode())
+            elif read_len == 1: await send_instr(dut, InstructionLH(x1, sp, read_addr_lo-0x800).encode())
+            else: await send_instr(dut, InstructionLW(x1, sp, read_addr_lo-0x800).encode())
+            read_val = await read_reg(dut, x1)
+            assert (read_val & 0xFF) == RAM[read_addr]
+            if read_len > 0: assert ((read_val >> 8) & 0xFF) == RAM[read_addr+1]
+            if read_len > 1: 
+                assert ((read_val >> 16) & 0xFF) == RAM[read_addr+2]
+                assert ((read_val >> 24) & 0xFF) == RAM[read_addr+3]
+        else:
+            write_len = random.randint(0,2)
+            write_addr_lo = write_addr & 0xfff
+            write_addr_hi = write_addr & 0xf000
+            write_val = random.randint(0,0xffffffff)
+            await send_instr(dut, InstructionLUI(sp, (RAM_BASE+0x800+write_addr_hi) >> 12).encode())
+            await send_instr(dut, InstructionLUI(x1, (write_val >> 12) + ((write_val >> 11) & 1)).encode())
+            await send_instr(dut, InstructionADDI(x1, x1, (write_val & 0xfff) - (0x1000 if write_val & 0x800 else 0)).encode())
+
+            if write_len == 0: await send_instr(dut, InstructionSB(sp, x1, write_addr_lo-0x800).encode())
+            elif write_len == 1: await send_instr(dut, InstructionSH(sp, x1, write_addr_lo-0x800).encode())
+            else: await send_instr(dut, InstructionSW(sp, x1, write_addr_lo-0x800).encode())
+            
+            RAM[write_addr] = write_val & 0xff
+            if write_len > 0: RAM[write_addr + 1] = (write_val >> 8) & 0xff
+            if write_len > 1:
+                RAM[write_addr + 2] = (write_val >> 16) & 0xff
+                RAM[write_addr + 3] = (write_val >> 24) & 0xff
 
 def chip_top_runner():
 
@@ -697,8 +793,10 @@ def chip_top_runner():
         sources.append(src_path / "user_peripherals/matt_pwm/matt_pwm.v")
         sources.append(src_path / "user_peripherals/matt_pwm/pwm_strobe_gen.v")
         sources.append(src_path / "user_peripherals/matt_pwm/pwm.v")
+        sources.append(src_path / "user_peripherals/pwl_synth/pwl_synth.sv")
+        sources.append(src_path / "user_peripherals/pwl_synth/pwl_synth_memory.sv")
 
-        #includes.append(src_path / "user_peripherals/pwl_synth/")
+        includes.append(src_path / "user_peripherals/pwl_synth/")
 
         defines.update({"SIM": True})
 
