@@ -721,6 +721,7 @@ async def test_stack_memory(dut):
                 assert ((read_val >> 24) & 0xFF) == RAM[read_addr+3]
         else:
             write_len = random.randint(0,2)
+            write_addr = random.randint(0,RAM_SIZE - (1 << write_len)) & mask[write_len]
             write_addr_lo = write_addr & 0xfff
             write_addr_hi = write_addr & 0xf000
             write_val = random.randint(0,0xffffffff)
