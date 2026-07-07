@@ -818,6 +818,15 @@ def chip_top_runner():
         sources.append(src_path / "user_peripherals/AY8913/tone.v")
         sources.append(src_path / "user_peripherals/AY8913/ay8913.v")
         sources.append(src_path / "user_peripherals/AY8913/peripheral.v")
+        sources.append(src_path / "user_peripherals/usbcdc/peripheral.v")
+        sources.append(src_path / "user_peripherals/usbcdc/bulk_endp.v")
+        sources.append(src_path / "user_peripherals/usbcdc/ctrl_endp.v")
+        sources.append(src_path / "user_peripherals/usbcdc/in_fifo.v")
+        sources.append(src_path / "user_peripherals/usbcdc/out_fifo.v")
+        sources.append(src_path / "user_peripherals/usbcdc/phy_rx.v")
+        sources.append(src_path / "user_peripherals/usbcdc/phy_tx.v")
+        sources.append(src_path / "user_peripherals/usbcdc/sie.v")
+        sources.append(src_path / "user_peripherals/usbcdc/usb_cdc.v")
 
         includes.append(src_path / "user_peripherals/pwl_synth/")
 

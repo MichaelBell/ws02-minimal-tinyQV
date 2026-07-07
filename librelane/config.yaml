@@ -82,6 +82,15 @@ VERILOG_FILES:
 - dir::../src/user_peripherals/AY8913/tone.v
 - dir::../src/user_peripherals/AY8913/ay8913.v
 - dir::../src/user_peripherals/AY8913/peripheral.v
+- dir::../src/user_peripherals/usbcdc/peripheral.v
+- dir::../src/user_peripherals/usbcdc/bulk_endp.v
+- dir::../src/user_peripherals/usbcdc/ctrl_endp.v
+- dir::../src/user_peripherals/usbcdc/in_fifo.v
+- dir::../src/user_peripherals/usbcdc/out_fifo.v
+- dir::../src/user_peripherals/usbcdc/phy_rx.v
+- dir::../src/user_peripherals/usbcdc/phy_tx.v
+- dir::../src/user_peripherals/usbcdc/sie.v
+- dir::../src/user_peripherals/usbcdc/usb_cdc.v
 
 # Enable plugin for better SystemVerilog support
 # USE_SLANG: True
@@ -117,12 +126,12 @@ CLOCK_NET: clk_pad/Y
 CLOCK_PERIOD: 17.5 # 56 MHz
 
 # Overfix hold violations
-PL_RESIZER_HOLD_SLACK_MARGIN: 0.35
-GRT_RESIZER_HOLD_SLACK_MARGIN: 0.3
+PL_RESIZER_HOLD_SLACK_MARGIN: 0.4
+GRT_RESIZER_HOLD_SLACK_MARGIN: 0.4
 
 # Increase density for more 
 # logic on your die
-PL_TARGET_DENSITY_PCT: 60
+PL_TARGET_DENSITY_PCT: 55
 GRT_ALLOW_CONGESTION: true
 
 SYNTH_AUTONAME: True
