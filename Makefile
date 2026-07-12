@@ -15,9 +15,9 @@ PDK_COMMIT ?= d658698bd8bcf4e05fc7b5991a701247ba0d744c
 # gf180mcu_osu_sc_gp12t3v3 (broken)
 
 ifeq ($(SCL),default)
-    SCL = gf180mcu_fd_sc_mcu7t5v0
+    SCL = gf180mcu_as_sc_mcu7t3v3
 endif
-SCL ?= gf180mcu_fd_sc_mcu7t5v0
+SCL ?= gf180mcu_as_sc_mcu7t3v3
 
 # Available PAD libraries:
 # gf180mcu_fd_io
@@ -33,9 +33,9 @@ PAD ?= gf180mcu_fd_io
 # gf180mcu_ocd_ip_sram
 
 ifeq ($(SRAM),default)
-    SRAM = gf180mcu_fd_ip_sram
+    SRAM = gf180mcu_ocd_ip_sram
 endif
-SRAM ?= gf180mcu_fd_ip_sram
+SRAM ?= gf180mcu_ocd_ip_sram
 
 ifeq ($(SRAM),gf180mcu_fd_ip_sram)
     MACROS = 5v
@@ -44,7 +44,7 @@ else
 endif
 
 AVAILABLE_SLOTS = 1x1 0p5x1 1x0p5 0p5x0p5
-DEFAULT_SLOT = 1x1
+DEFAULT_SLOT = 0p5x0p5
 
 # Slot can be any of AVAILABLE_SLOTS
 SLOT ?= $(DEFAULT_SLOT)
