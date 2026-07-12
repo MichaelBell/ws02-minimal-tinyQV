@@ -6,7 +6,7 @@
 `default_nettype none
 
 module tinyQV_top #(
-    parameter CLOCK_KHZ=48000,
+    parameter CLOCK_KHZ=56000,
     parameter NUM_GPIO=6
 ) (
     input  wire [NUM_GPIO-1:0] gpio_in,
