@@ -75,7 +75,7 @@ module tinyQV_top #(
     // Peripherals interface
     wire [31:0] peri_data_out;
     wire        peri_data_ready;
-    wire [7:2] peri_interrupts;
+    wire [9:2] peri_interrupts;
 
     // Peripherals get synchronized ui_in.
     reg [NUM_GPIO-1:0] gpio_in_sync0;
@@ -86,7 +86,7 @@ module tinyQV_top #(
     end
 
     // Interrupt requests
-    wire [7:0] interrupt_req = {peri_interrupts, gpio_in_sync[1:0]};
+    wire [9:0] interrupt_req = {peri_interrupts, gpio_in_sync[1:0]};
     // Register the reset on the negative edge of clock for safety.
     // This also allows the option of async reset in the design, which might be preferable in some cases
     always @(negedge clk) setup_rst_n <= rst_n;
