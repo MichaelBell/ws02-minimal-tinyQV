@@ -133,7 +133,7 @@ module tinyQV_peripherals #(
 
     assign data_from_user_peri[0] = 32'h0;
     assign data_ready_from_user_peri[0] = 0;
-    assign uo_out_from_user_peri[0] = 8'h0;
+    assign uo_out_from_user_peri[0] = '0;
 
     // --------------------------------------------------------------------- //
     // GPIO
@@ -171,7 +171,11 @@ module tinyQV_peripherals #(
     assign data_ready_from_user_peri[PERI_GPIO] = 1;
     assign uo_out_from_user_peri[PERI_GPIO] = io_out;
 
-    assign gpio_oe = io_oe;
+    wire usb_tx_en;
+    assign gpio_oe[NUM_GPIO-1:5] = io_oe[NUM_GPIO-1:5];
+    assign gpio_oe[4] = gpio_out_func_sel[4] == 5'd7 ? usb_tx_en : io_oe[4];
+    assign gpio_oe[3] = gpio_out_func_sel[3] == 5'd7 ? usb_tx_en : io_oe[3];
+    assign gpio_oe[2:0] = io_oe[2:0];
     assign gpio_pu = io_pu;
     assign gpio_pd = io_pd;
 
@@ -300,12 +304,14 @@ module tinyQV_peripherals #(
         .user_interrupt(user_interrupts[6])
     );
 
-    tqvp_full_empty #(.NUM_GPIO(NUM_GPIO)) i_user_peri07 (
+    tqvp_usb_cdc #(.NUM_GPIO(NUM_GPIO)) i_usb_cdc_peri07 (
         .clk(clk),
         .rst_n(rst_n_rebuf),
 
         .ui_in(gpio_in),
         .uo_out(uo_out_from_user_peri[7]),
+
+        .usb_tx_en(usb_tx_en),
 
         .address(addr_in[5:0]),
         .data_in(data_in),
