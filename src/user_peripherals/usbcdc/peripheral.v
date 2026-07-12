@@ -5,8 +5,6 @@
 
 `default_nettype none
 
-localparam BIT_SAMPLES = 'd4;
-
 module tqvp_usb_cdc #(
     parameter NUM_GPIO = 8
     ) (
@@ -33,6 +31,8 @@ module tqvp_usb_cdc #(
 
     output        user_interrupt  // Dedicated interrupt request for this peripheral
 );
+
+    localparam BIT_SAMPLES = 'd4;
 
     wire  usb_dp_in = ui_in[3];
     wire  usb_dn_in = ui_in[4];
