@@ -91,6 +91,14 @@ VERILOG_FILES:
 - dir::../src/user_peripherals/usbcdc/phy_tx.v
 - dir::../src/user_peripherals/usbcdc/sie.v
 - dir::../src/user_peripherals/usbcdc/usb_cdc.v
+- dir::../src/user_peripherals/pdm/cic3_pdm.v
+- dir::../src/user_peripherals/pdm/peripheral.v
+- dir::../src/user_peripherals/Configurable_crc32/bit_reverser.v
+- dir::../src/user_peripherals/Configurable_crc32/crc_wrapper.v
+- dir::../src/user_peripherals/Configurable_crc32/crc32_v.v
+- dir::../src/user_peripherals/Configurable_crc32/shift_reg.v
+- dir::../src/user_peripherals/waveforms/peripheral.sv
+- dir::../src/user_peripherals/waveforms/font.sv
 
 # Enable plugin for better SystemVerilog support
 # USE_SLANG: True

@@ -827,7 +827,15 @@ def chip_top_runner():
         sources.append(src_path / "user_peripherals/usbcdc/phy_tx.v")
         sources.append(src_path / "user_peripherals/usbcdc/sie.v")
         sources.append(src_path / "user_peripherals/usbcdc/usb_cdc.v")
-
+        sources.append(src_path / "user_peripherals/pdm/cic3_pdm.v")
+        sources.append(src_path / "user_peripherals/pdm/peripheral.v")
+        sources.append(src_path / "user_peripherals/Configurable_crc32/bit_reverser.v")
+        sources.append(src_path / "user_peripherals/Configurable_crc32/crc_wrapper.v")
+        sources.append(src_path / "user_peripherals/Configurable_crc32/crc32_v.v")
+        sources.append(src_path / "user_peripherals/Configurable_crc32/shift_reg.v")
+        sources.append(src_path / "user_peripherals/waveforms/peripheral.sv")
+        sources.append(src_path / "user_peripherals/waveforms/font.sv")
+        
         includes.append(src_path / "user_peripherals/pwl_synth/")
 
         defines.update({"SIM": True})
