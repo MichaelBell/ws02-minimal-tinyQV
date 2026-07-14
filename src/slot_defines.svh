@@ -52,12 +52,12 @@
 `define NUM_DVDD_PADS 1
 `define NUM_DVSS_PADS 1
 
-`define NUM_VDD_PADS 1
-`define NUM_VSS_PADS 1
+`define NUM_VDD_PADS 0
+`define NUM_VSS_PADS 0
 
 // Signal pads
-`define NUM_INPUT_PADS 2
-`define NUM_BIDIR_PADS 7
-`define NUM_ANALOG_PADS 2
+`define NUM_INPUT_PADS 0
+`define NUM_BIDIR_PADS 13
+`define NUM_ANALOG_PADS 0
 
 `endif
