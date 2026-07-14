@@ -147,7 +147,7 @@ module tinyQV_peripherals #(
     always @(posedge clk) begin
         if (!rst_n_rebuf) begin
             io_out <= 0;
-            io_oe <= 0;
+            io_oe <= 1;
             io_pu <= 0;
             io_pd <= 0;
         end else if (peri_user[PERI_GPIO]) begin
