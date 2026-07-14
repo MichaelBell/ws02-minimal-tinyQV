@@ -262,7 +262,7 @@ module tinyQV_peripherals #(
         .user_interrupt(user_interrupts[4])
     );
 
-    tqvp_full_empty #(.NUM_GPIO(NUM_GPIO)) i_user_peri05 (
+    tqvp_toivoh_pwl_synth #(.NUM_GPIO(NUM_GPIO)) i_user_peri05 (
         .clk(clk),
         .rst_n(rst_n_rebuf_negedge),
 

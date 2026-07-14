@@ -58,6 +58,8 @@ VERILOG_FILES:
 - dir::../src/user_peripherals/matt_pwm/matt_pwm.v
 - dir::../src/user_peripherals/matt_pwm/pwm_strobe_gen.v
 - dir::../src/user_peripherals/matt_pwm/pwm.v
+- dir::../src/user_peripherals/pwl_synth/pwl_synth.sv
+- dir::../src/user_peripherals/pwl_synth/pwl_synth_memory.sv
 
 # Enable plugin for better SystemVerilog support
 # USE_SLANG: True
@@ -90,7 +92,7 @@ IGNORE_DISCONNECTED_MODULES:
 # Clock
 CLOCK_PORT: clk_PAD
 CLOCK_NET: clk_pad/Y
-CLOCK_PERIOD: 20 # 50 MHz
+CLOCK_PERIOD: 17.5 # 56 MHz
 
 # Overfix hold violations
 PL_RESIZER_HOLD_SLACK_MARGIN: 0.35
